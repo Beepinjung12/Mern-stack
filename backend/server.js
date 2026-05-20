@@ -6,6 +6,8 @@ import { connectDB } from "./config/db.js";
 import roomRoutes from "./routes/room.route.js";
 import authRoutes from "./routes/auth.route.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
 const app = express(); // intialize
 
 app.get("/", (req, res) => {
@@ -14,10 +16,10 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 app.use("/api/rooms", roomRoutes); // routes bolauxa routes le controller ani controller le model
 app.use("/api/auth", authRoutes);
-
 
 app.listen(5000, () => {
   connectDB();

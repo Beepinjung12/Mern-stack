@@ -1,11 +1,20 @@
 import express from "express";
 
-import { registerUser, loginUser } from "../controllers/auth.controller.js";
+import {
+  registerUser,
+  loginUser,
+  getUserProfile,
+  updateUserProfile,
+} from "../controllers/auth.controller.js";
+import { get } from "mongoose";
+import protectRoute from "../middlewares/protectRoute.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 
 router.post("/login", loginUser);
+router.get("/profile", protectRoute, getUserProfile);
+router.put("/profile/update", protectRoute, updateUserProfile);
 
 export default router;
