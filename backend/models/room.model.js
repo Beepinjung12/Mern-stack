@@ -39,7 +39,7 @@ const roomSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
-
+roomSchema.index({ title: 1 }, { unique: true }); // Unique index on title
 const Room = mongoose.model("Room", roomSchema);
 
 export default Room;
