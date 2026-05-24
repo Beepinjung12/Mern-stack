@@ -35,3 +35,22 @@ export const postRoom = async (req, res) => {
     });
   }
 };
+
+export const getRooms = async (req, res) => {
+  try {
+    // Fetch all rooms from the database, sorted by the newest first
+    const rooms = await Room.find({}).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: rooms.length,
+      data: rooms,
+    });
+  } catch (error) {
+    console.log("Error fetching rooms:", error.message);
+    res.status(500).json({
+      success: false,
+      message: "Server Error, could not fetch rooms",
+    });
+  }
+};
