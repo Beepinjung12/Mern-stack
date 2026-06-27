@@ -9,7 +9,7 @@ import { logout as logoutApi } from "../api/auth";
 
 const Header = () => {
   const router = useRouter();
-  const { user, logout, isLoggedIn } = useAuth(); // ← use context
+  const { user, logout, isLoggedIn } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -17,7 +17,7 @@ const Header = () => {
     } catch (err) {
       console.log("Backend logout failed");
     } finally {
-      logout(); // ← clears context + storage
+      logout();
       router.push("/");
     }
   };
@@ -34,7 +34,7 @@ const Header = () => {
       >
         <Logo />
 
-        <ul className="flex list-none gap-8">
+        <ul className="hidden md:flex list-none gap-8">
           <li>
             <Link
               href="#"

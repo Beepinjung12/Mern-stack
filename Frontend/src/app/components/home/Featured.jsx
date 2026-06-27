@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import budgetRoom from "../../assets/budget.jpg";
@@ -5,30 +7,112 @@ import cozyRoom from "../../assets/cozy.avif";
 import modernRoom from "../../assets/Modern.avif";
 import sharedRoom from "../../assets/shared.avif";
 
-import { RiMapPinLine, RiStarFill, RiHeartLine, RiChatSmile3Fill } from "react-icons/ri";
-import { MdOutlineTravelExplore } from "react-icons/md";
-import { RiShieldKeyholeFill, RiCalendarCheckFill, RiNotification3Fill, RiSettings4Fill, RiSearchEyeFill } from "react-icons/ri";
+import {
+  RiMapPinLine,
+  RiStarFill,
+  RiHeartLine,
+  RiChatSmile3Fill,
+} from "react-icons/ri";
+import {
+  RiShieldKeyholeFill,
+  RiCalendarCheckFill,
+  RiNotification3Fill,
+  RiSettings4Fill,
+  RiSearchEyeFill,
+} from "react-icons/ri";
 
 const rooms = [
-  { image: modernRoom, badge: "Featured", title: "Modern studio near metro",    location: "Thamel, Kathmandu",   price: "$320", rating: "4.9" },
-  { image: cozyRoom,   badge: "Popular",  title: "Cozy single room, city view", location: "Lazimpat, Kathmandu", price: "$210", rating: "4.7" },
-  { image: sharedRoom, badge: "New",      title: "Spacious shared apartment",   location: "Patan, Lalitpur",     price: "$180", rating: "4.8" },
-  { image: budgetRoom, badge: "Verified", title: "Budget room, near college",   location: "Kirtipur, Kathmandu", price: "$95",  rating: "4.5" },
+  {
+    image: modernRoom,
+    badge: "Featured",
+    title: "Modern studio near metro",
+    location: "Thamel, Kathmandu",
+    price: "Rs 12220",
+    rating: "4.9",
+    roomSize: "28 sqm",
+    type: "Studio",
+    description: "Bright studio apartment close to downtown transit.",
+  },
+  {
+    image: cozyRoom,
+    badge: "Popular",
+    title: "Cozy single room, city view",
+    location: "Lazimpat, Kathmandu",
+    price: "Rs 6210",
+    rating: "4.7",
+    roomSize: "18 sqm",
+    type: "Single bed",
+    description: "Quiet single bedroom with city views and fast Wi-Fi.",
+  },
+  {
+    image: sharedRoom,
+    badge: "New",
+    title: "Spacious shared apartment",
+    location: "Patan, Lalitpur",
+    price: "Rs 11180",
+    rating: "4.8",
+    roomSize: "15 sqm",
+    type: "Shared",
+    description: "Large shared apartment with a modern kitchen and laundry.",
+  },
+  {
+    image: budgetRoom,
+    badge: "Verified",
+    title: "Budget room, near college",
+    location: "Kirtipur, Kathmandu",
+    price: "Rs 5095",
+    rating: "4.5",
+    roomSize: "12 sqm",
+    type: "Near university",
+    description: "Affordable room near campus with essential amenities.",
+  },
 ];
 
 const features = [
-  { icon: <RiSearchEyeFill />,      title: "Smart search",   desc: "Filter by price, location, amenities, and more" },
-  { icon: <RiShieldKeyholeFill />,  title: "JWT Auth",       desc: "Secure login and registration for all users" },
-  { icon: <RiCalendarCheckFill />,  title: "Booking system", desc: "Instant booking with calendar management" },
-  { icon: <RiNotification3Fill />,  title: "Notifications",  desc: "Real-time alerts via Socket.io" },
-  { icon: <RiSettings4Fill />,      title: "Admin panel",    desc: "Full room, booking, and user management" },
+  {
+    icon: <RiSearchEyeFill />,
+    title: "Smart search",
+    desc: "Filter by price, location, amenities, and more",
+  },
+  {
+    icon: <RiShieldKeyholeFill />,
+    title: "JWT Auth",
+    desc: "Secure login and registration for all users",
+  },
+  {
+    icon: <RiCalendarCheckFill />,
+    title: "Booking system",
+    desc: "Instant booking with calendar management",
+  },
+  {
+    icon: <RiNotification3Fill />,
+    title: "Notifications",
+    desc: "Real-time alerts via Socket.io",
+  },
+  {
+    icon: <RiSettings4Fill />,
+    title: "Admin panel",
+    desc: "Full room, booking, and user management",
+  },
 ];
 
 const steps = [
-  { n: "1", title: "Create account", desc: "Sign up and verify your identity securely" },
-  { n: "2", title: "Search rooms",   desc: "Browse and filter thousands of listings" },
-  { n: "3", title: "Chat & book",    desc: "Message the owner and confirm booking" },
-  { n: "4", title: "Move in",        desc: "Enjoy your new room with peace of mind" },
+  {
+    n: "1",
+    title: "Create account",
+    desc: "Sign up and verify your identity securely",
+  },
+  {
+    n: "2",
+    title: "Search rooms",
+    desc: "Browse and filter thousands of listings",
+  },
+  {
+    n: "3",
+    title: "Chat & book",
+    desc: "Message the owner and confirm booking",
+  },
+  { n: "4", title: "Move in", desc: "Enjoy your new room with peace of mind" },
 ];
 
 const Featured = () => {
@@ -44,24 +128,12 @@ const Featured = () => {
           >
             Featured listings
           </h2>
-          <a href="#" className="text-[13px] font-medium text-sky-500 no-underline hover:underline">
+          <a
+            href="#"
+            className="text-[13px] font-medium text-sky-500 no-underline hover:underline"
+          >
             View all →
           </a>
-        </div>
-
-        {/* Filters */}
-        <div className="mb-6 flex flex-wrap gap-2">
-          <button className="rounded-full border border-sky-500 bg-sky-500 px-4 py-1.5 text-[13px] font-medium text-white">
-            All rooms
-          </button>
-          {["Studio", "Single bed", "Shared", "Near university"].map((f) => (
-            <button
-              key={f}
-              className="rounded-full border border-sky-300 bg-white px-4 py-1.5 text-[13px] text-sky-700 transition hover:bg-sky-50"
-            >
-              {f}
-            </button>
-          ))}
         </div>
 
         {/* Room grid */}
@@ -90,7 +162,9 @@ const Featured = () => {
 
               {/* Body */}
               <div className="p-4">
-                <h3 className="mb-1 text-[15px] font-medium text-sky-900">{room.title}</h3>
+                <h3 className="mb-1 text-[15px] font-medium text-sky-900">
+                  {room.title}
+                </h3>
                 <div className="mb-3 flex items-center gap-1 text-[12px] text-slate-500">
                   <RiMapPinLine size={13} />
                   {room.location}
@@ -98,7 +172,10 @@ const Featured = () => {
                 <div className="flex items-center justify-between">
                   <div className="text-[16px] font-medium text-sky-600">
                     {room.price}
-                    <span className="text-[11px] font-light text-slate-500"> /mo</span>
+                    <span className="text-[11px] font-light text-slate-500">
+                      {" "}
+                      /mo
+                    </span>
                   </div>
                   <div className="flex items-center gap-1 text-[12px] text-slate-500">
                     <RiStarFill size={13} className="text-yellow-400" />
@@ -121,7 +198,8 @@ const Featured = () => {
             Chat with room owners directly
           </h3>
           <p className="text-[13px] font-light text-gray-500">
-            Ask questions, negotiate, and confirm your stay in real time via our built-in chat system
+            Ask questions, negotiate, and confirm your stay in real time via our
+            built-in chat system
           </p>
         </div>
         <button className="ml-auto flex-shrink-0 whitespace-nowrap rounded-[20px] bg-sky-500 px-[18px] py-[9px] text-[13px] font-medium text-white transition hover:bg-sky-600">
@@ -130,7 +208,10 @@ const Featured = () => {
       </div>
 
       {/* ===== EVERYTHING YOU NEED ===== */}
-      <section className="px-8 py-[52px]" style={{ backgroundColor: "#0369a1" }}>
+      <section
+        className="px-8 py-[52px]"
+        style={{ backgroundColor: "#0369a1" }}
+      >
         <h2
           className="mb-[6px] text-center text-[26px] font-semibold text-white"
           style={{ fontFamily: "'Playfair Display', serif" }}
@@ -150,8 +231,12 @@ const Featured = () => {
               <div className="mx-auto mb-3 flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-sky-600/30 text-white text-[22px]">
                 {f.icon}
               </div>
-              <div className="mb-1 text-[14px] font-medium text-white">{f.title}</div>
-              <div className="text-[12px] font-light leading-[1.5] text-white/50">{f.desc}</div>
+              <div className="mb-1 text-[14px] font-medium text-white">
+                {f.title}
+              </div>
+              <div className="text-[12px] font-light leading-[1.5] text-white/50">
+                {f.desc}
+              </div>
             </div>
           ))}
         </div>
@@ -172,8 +257,12 @@ const Featured = () => {
               <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full border-2 border-sky-300 bg-sky-100 text-[16px] font-medium text-sky-600">
                 {step.n}
               </div>
-              <div className="mb-1 text-[14px] font-medium text-sky-800">{step.title}</div>
-              <div className="text-[12px] font-light leading-[1.5] text-gray-500">{step.desc}</div>
+              <div className="mb-1 text-[14px] font-medium text-sky-800">
+                {step.title}
+              </div>
+              <div className="text-[12px] font-light leading-[1.5] text-gray-500">
+                {step.desc}
+              </div>
               {i < arr.length - 1 && (
                 <div className="absolute right-[-10px] top-5 h-[1px] w-[20px] bg-sky-200" />
               )}
