@@ -3,15 +3,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-import { login } from "../../api/auth";
+import { login as loginApi } from "../../api/auth";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const router = useRouter();
+  const { login } = useAuth(); // ← use context
 
   const {
     register,
@@ -23,18 +23,20 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      const res = await login({
-        // CHANGED — send phone instead of email
+      const res = await loginApi({
         phone: data.phone,
         password: data.password,
       });
+      const token = res.data?.token;
+      const user = res.data?.user; // or however your backend returns it
 
       if (rememberMe) {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("token", token);
       } else {
-        sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("token", token);
       }
 
+      login(token, user); // ← update context (Header updates instantly!)
       router.push("/");
     } catch (err) {
       setError(

@@ -1,6 +1,6 @@
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { AuthProvider } from "./context/AuthContext";
+import ClientLayout from "./components/ClientLayout";
 
 export const metadata = {
   title: "BasoBas",
@@ -11,11 +11,9 @@ function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Header />
-
-        {children}
-
-        <Footer />
+        <AuthProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </AuthProvider>
       </body>
     </html>
   );

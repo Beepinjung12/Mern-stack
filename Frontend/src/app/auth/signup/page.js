@@ -34,7 +34,7 @@ export default function SignupPage() {
       const res = await signup(payload);
       localStorage.setItem("token", res.data.token);
 
-      router.push("/dashboard");
+      router.push("/");
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
     } finally {
