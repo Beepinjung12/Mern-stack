@@ -11,6 +11,26 @@ const popularCities = [
   { name: "Lalitpur", rooms: "430 rooms" },
 ];
 
-export default function ExplorePage() {
-  return <ExploreClient popularCities={popularCities} />;
+async function getSubmittedRooms() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/rooms`,
+      { cache: "no-store" }
+    );
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
+export default async function ExplorePage() {
+  const submittedRooms = await getSubmittedRooms();
+
+  return (
+    <ExploreClient
+      popularCities={popularCities}
+      submittedRooms={submittedRooms}
+    />
+  );
 }

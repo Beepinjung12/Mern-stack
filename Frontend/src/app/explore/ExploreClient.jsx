@@ -16,7 +16,7 @@ const heroHighlights = [
   { label: "Price", value: "Under Rs 15,000" },
 ];
 
-const roomListings = [
+const demoRoomListings = [
   {
     title: " Single Room in Thamel",
     location: "Thamel, Kathmandu",
@@ -63,16 +63,53 @@ const roomListings = [
   },
 ];
 
-const filterableCities = [
-  "All",
-  ...new Set(roomListings.map((room) => room.city)),
-];
-const priceOptions = [15000, 12000, 10000, 8000];
+const FALLBACK_IMG =
+  "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80";
 
-export default function ExploreClient({ popularCities }) {
+// Turns a raw submitted room (from the List Room form) into the shape the cards expect
+function normalizeSubmittedRoom(room) {
+  const rentNumber = Number(room.rent) || 0;
+  // crude city guess from the location string, e.g. "POKHARA-10, KASKI" -> "Pokhara"
+  const cityGuess = room.location
+    ? room.location.split(",")[0].replace(/-\d+$/, "").trim()
+    : "Unknown";
+
+  return {
+    id: room.id,
+    title: room.title,
+    location: room.location,
+    city: cityGuess,
+    price: rentNumber,
+    priceLabel: `Rs ${rentNumber.toLocaleString()}/mo`,
+    beds: room.rentType?.toLowerCase().includes("2") ? 2 : 1,
+    baths: 1,
+    area: "—",
+    img: FALLBACK_IMG,
+    contact: room.contact,
+    whatsapp: room.whatsapp,
+    tenancy: room.tenancy,
+    facilities: room.facilities,
+    parking: room.parking,
+    isUserSubmitted: true,
+  };
+}
+
+export default function ExploreClient({ popularCities, submittedRooms = [] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("All");
   const [maxPrice, setMaxPrice] = useState(15000);
+
+  // Real listings first, then demo listings
+  const roomListings = useMemo(() => {
+    const normalized = submittedRooms.map(normalizeSubmittedRoom);
+    return [...normalized, ...demoRoomListings];
+  }, [submittedRooms]);
+
+  const filterableCities = useMemo(
+    () => ["All", ...new Set(roomListings.map((room) => room.city))],
+    [roomListings]
+  );
+  const priceOptions = [15000, 12000, 10000, 8000];
 
   const filteredRooms = useMemo(() => {
     return roomListings.filter((room) => {
@@ -84,7 +121,7 @@ export default function ExploreClient({ popularCities }) {
       const priceMatch = room.price <= maxPrice;
       return queryMatch && cityMatch && priceMatch;
     });
-  }, [searchQuery, selectedCity, maxPrice]);
+  }, [roomListings, searchQuery, selectedCity, maxPrice]);
 
   return (
     <div
@@ -362,7 +399,7 @@ export default function ExploreClient({ popularCities }) {
         >
           {filteredRooms.map((room) => (
             <article
-              key={room.title}
+              key={room.id || room.title}
               style={{
                 background: "white",
                 borderRadius: 24,
@@ -403,6 +440,25 @@ export default function ExploreClient({ popularCities }) {
                 >
                   <FaHeart color="#ef4444" />
                 </button>
+                {room.isUserSubmitted && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: 16,
+                      left: 16,
+                      background: "#0369a1",
+                      color: "white",
+                      fontSize: "0.7rem",
+                      fontWeight: 700,
+                      padding: "4px 10px",
+                      borderRadius: 999,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    New listing
+                  </span>
+                )}
               </div>
               <div
                 style={{

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1782630515991",
+    "title": "Flat",
+    "rentType": "",
+    "tenancy": "GENERAL",
+    "rent": "8000",
+    "location": "Pokhaea-10",
+    "contact": "98337772727",
+    "whatsapp": "",
+    "facilities": "",
+    "parking": "bike",
+    "createdAt": "2026-06-28T07:08:35.991Z"
+  },
+  {
+    "id": "1782629868213",
+    "title": "FLAT",
+    "rentType": "",
+    "tenancy": "GENERAL",
+    "rent": "8000",
+    "location": "Pokhaea-10",
+    "contact": "98337772727",
+    "whatsapp": "",
+    "facilities": "",
+    "parking": "bike",
+    "createdAt": "2026-06-28T06:57:48.213Z"
+  }
+]
